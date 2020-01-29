@@ -14,7 +14,7 @@ class Lang {
     public Long getId() {
         return id;
     }
-    
+
     public String getWelcomeMsg() {
         return welcomeMsg;
     }
