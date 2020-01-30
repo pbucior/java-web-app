@@ -25,7 +25,8 @@ public class HelloServiceTest {
     @Test
     public void test_prepareGreeting_name_returnsGreetingWithName() throws Exception {
         // given
-        var SUT = new HelloService();
+        var mockRepository = alwaysReturningLangRepository();
+        var SUT = new HelloService(mockRepository);
         var name = "test";
 
         // when
@@ -33,6 +34,28 @@ public class HelloServiceTest {
 
         // then
         assertEquals(WELCOME + " " + name + "!", result);
+    }
+
+    @Test
+    public void test_prepareGreeting_nullLang_returnsGreetingWithFallbackIdLang() throws Exception {
+        // given
+        var fallbackIdWelcome = "Hola";
+        var mockRepository = new LangRepository() {
+            @Override
+            Optional<Lang> findById(Long id) {
+                if(id.equals(HelloService.FALLBACK_LANG.getId())) {
+                    return Optional.of(new Lang(null, fallbackIdWelcome, null));
+                }
+                return Optional.empty();
+            }
+        };
+        var SUT = new HelloService(mockRepository);
+
+        // when
+        var result = SUT.prepareGreeting(null, null);
+
+        // then
+        assertEquals(fallbackIdWelcome + " " + HelloService.FALLBACK_NAME + "!", result);
     }
 
     private LangRepository alwaysReturningLangRepository() {
