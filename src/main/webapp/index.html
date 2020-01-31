@@ -17,7 +17,7 @@
     <div id="welcome" style="width: 40%; margin: 0 auto"></div>
     <script>
         const API_URL = 'http://localhost:8080/api';
-        
+
         const CODE_TO_EMOJI = {
             'pl': '🇵🇱',
             'en': '🇺🇸',
@@ -44,7 +44,7 @@
                 name: form.elements.name.value,
                 lang: form.elements.lang.value
             };
-            fetch(`${API_URL}?{new URLSearchParams(formObj)}`)
+            fetch(`${API_URL}?${new URLSearchParams(formObj)}`)
                 .then((response) => response.text())
                 .then((text) => {
                     div.innerHTML = `
