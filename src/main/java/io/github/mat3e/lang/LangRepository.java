@@ -1,9 +1,11 @@
-package io.github.mat3e;
+package io.github.mat3e.lang;
+
+import io.github.mat3e.HibernateUtil;
 
 import java.util.List;
 import java.util.Optional;
 
-class LangRepository {
+public class LangRepository {
 
     List<Lang> findAll() {
         var session = HibernateUtil.getSessionFactory().openSession();
@@ -14,7 +16,7 @@ class LangRepository {
         return result;
     }
 
-    Optional<Lang> findById(Integer id) {
+    public Optional<Lang> findById(Integer id) {
         var session = HibernateUtil.getSessionFactory().openSession();
         var transaction = session.beginTransaction();
         var result = Optional.ofNullable(session.get(Lang.class, id));
