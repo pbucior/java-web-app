@@ -31,6 +31,9 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">validate</property>
 
+        <!-- Names the annotated entity class -->
+        <mapping class="io.github.mat3e.Lang"/>
+
     </session-factory>
 
 </hibernate-configuration>
