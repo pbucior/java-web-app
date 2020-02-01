@@ -50,4 +50,10 @@ public class TodoServlet extends HttpServlet {
             logger.warn("Wrong path used: " + pathInfo);
         }
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        var newTodo = mapper.readValue(req.getInputStream(), Todo.class);
+        mapper.writeValue(resp.getOutputStream(), repository.addTodo(newTodo));
+    }
 }
